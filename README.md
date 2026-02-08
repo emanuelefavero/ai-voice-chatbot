@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Voice Chatbot
 
-## Getting Started
+This project is focused on building a high-performance, low-latency AI vocal chatbot using Next.js (App Router), TypeScript, and ElevenLabs Conversational AI. The chatbot will allow users to interact with an AI agent through voice commands, providing a seamless and engaging experience.
 
-First, run the development server:
+## Project Structure
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- `app/` - Next.js App Router (UI & API Routes)
+- `app/components/` - Store `Conversation.tsx` here.
+- `app/api/get-signed-url/` - Route handler for ElevenLabs auth.
+- `.env.local` - Contains `ELEVENLABS_API_KEY` and `NEXT_PUBLIC
+- AGENT_ID`.
+- `README.md` - Project overview and setup instructions.
+- `package.json` - Project dependencies and scripts.
+- `tsconfig.json` - TypeScript configuration.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup Instructions
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Clone the Repository and navigate into the project directory:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+  ```bash
+  git clone https://github.com/emanuelefavero/ai-voice-chatbot.git
+  cd ai-voice-chatbot
+  ```
 
-## Learn More
+- Install Dependencies:
 
-To learn more about Next.js, take a look at the following resources:
+  ```bash
+  npm install
+  ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Create `.env.local` File:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+  ```bash
+  touch .env.local
+  ```
 
-## Deploy on Vercel
+- Add Environment Variables to `.env.local`:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  ```env
+  ELEVENLABS_API_KEY=your_elevenlabs_api_key_here
+  NEXT_PUBLIC_AGENT_ID=your_agent_id_here
+  ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Start Development Server:
+
+  ```bash
+  npm run dev
+  ```
+
+- Open your browser and navigate to `http://localhost:3000` to see the chatbot in action.
+
+## Resources
+
+- ElevenLabs Documentation: [https://elevenlabs.io/docs](https://elevenlabs.io/docs)
+- Next.js Documentation: [https://nextjs.org/docs](https://nextjs.org/docs)
+- Tailwind CSS Documentation: [https://tailwindcss.com/docs](https://tailwindcss.com/docs)
+
+## License
+
+- [MIT](LICENSE.md)
+
+&nbsp;
+
+---
+
+&nbsp;
+
+[**Go To Top &nbsp; ⬆️**](#ai-voice-chatbot)
