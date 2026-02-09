@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { NEXT_PUBLIC_AGENT_ID } from '@/config/env/public'
+// import { NEXT_PUBLIC_AGENT_ID } from '@/config/env/public'
 import { useConversation } from '@elevenlabs/react'
 import { useCallback } from 'react'
 
@@ -17,17 +17,32 @@ export function Conversation() {
     onError: (error) => console.error('Error:', error),
   })
 
+  // Helper function to get signed URL from the server
+  const getSignedUrl = async (): Promise<string> => {
+    const response = await fetch('/api/get-signed-url')
+    if (!response.ok) {
+      throw new Error(`Failed to get signed url: ${response.statusText}`)
+    }
+    const { signedUrl } = await response.json()
+    return signedUrl
+  }
+
+  // Start conversation with microphone access and signed URL
   const startConversation = useCallback(async () => {
     try {
       // Request microphone access
       await navigator.mediaDevices.getUserMedia({ audio: true })
 
+      // Get signed URL from the server
+      const signedUrl = await getSignedUrl()
+
       // Start the conversation session
       await conversation.startSession({
-        agentId: NEXT_PUBLIC_AGENT_ID, // Agent ID from ElevenLabs
+        // agentId: NEXT_PUBLIC_AGENT_ID, // Agent ID from ElevenLabs
         // userId: 'your-user-id', // Optional field for tracking users
-        connectionType: 'webrtc', // Either 'webrtc' or 'websocket'
         // ? webrtc is recommended for lower latency in voice conversations
+        // connectionType: 'webrtc', // Either 'webrtc' or 'websocket'
+        signedUrl, // Signed URL for secure connection
       })
     } catch (error) {
       console.error('Failed to start conversation:', error)

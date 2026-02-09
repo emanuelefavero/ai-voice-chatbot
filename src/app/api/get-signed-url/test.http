@@ -1,0 +1,8 @@
+### ElevenLabs get-signed-url API Test
+
+@agent_id = {{$dotenv NEXT_PUBLIC_AGENT_ID}}
+@api_key = {{$dotenv ELEVENLABS_API_KEY}}
+
+GET https://api.elevenlabs.io/v1/convai/conversation/get-signed-url?agent_id={{agent_id}}
+xi-api-key: {{api_key}}
+Accept: application/json
