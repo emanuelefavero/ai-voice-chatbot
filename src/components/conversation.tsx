@@ -1,7 +1,6 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-// import { NEXT_PUBLIC_AGENT_ID } from '@/config/env/public'
 import { useConversation } from '@elevenlabs/react'
 import { useCallback } from 'react'
 
@@ -38,11 +37,8 @@ export function Conversation() {
 
       // Start the conversation session
       await conversation.startSession({
-        // agentId: NEXT_PUBLIC_AGENT_ID, // Agent ID from ElevenLabs
-        // userId: 'your-user-id', // Optional field for tracking users
-        // ? webrtc is recommended for lower latency in voice conversations
-        // connectionType: 'webrtc', // Either 'webrtc' or 'websocket'
         signedUrl, // Signed URL for secure connection
+        // userId: 'your-user-id', // Optional field for tracking users
       })
     } catch (error) {
       console.error('Failed to start conversation:', error)
