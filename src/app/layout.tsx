@@ -23,7 +23,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main className='space-y-6 px-4 py-6'>{children}</main>
+          <main className='flex min-h-screen flex-col items-center justify-between p-24'>
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>
