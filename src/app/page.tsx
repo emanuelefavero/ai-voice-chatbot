@@ -1,4 +1,4 @@
-import { Conversation } from '@/components/conversation'
+import { Conversation } from '@/features/conversation'
 
 export default function Home() {
   return (
