@@ -2,7 +2,7 @@
 
 import { useConversation } from '@elevenlabs/react'
 import { useCallback } from 'react'
-import { getSignedUrl } from '../lib/conversation-api'
+import { getSignedUrl } from '../api'
 import { useMessagesStore } from '../store/messages'
 import type { Message } from '../types'
 

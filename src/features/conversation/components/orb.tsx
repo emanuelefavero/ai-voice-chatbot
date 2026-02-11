@@ -2,7 +2,7 @@
 
 import { Orb, type AgentState } from '@/components/ui/orb'
 import { cn } from '@/lib/utils'
-import { getOrbColors } from '../lib/orb-colors'
+import { getOrbColors } from '../styles/orb-colors'
 
 type ConversationOrbProps = {
   agentState: AgentState
