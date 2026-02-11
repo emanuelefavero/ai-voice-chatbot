@@ -1,16 +1,18 @@
 'use client'
 
 import { useConversation } from '@elevenlabs/react'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { getSignedUrl } from '../lib/conversation-api'
+import { useMessagesStore } from '../store/messages'
 import type { Message } from '../types'
 
 /**
  * Custom hook that wraps the ElevenLabs conversation hook with app-specific logic
- * Manages conversation state, messages, and connection lifecycle
+ * Manages conversation connection lifecycle and integrates with messages store
  */
 export function useConversationSession() {
-  const [messages, setMessages] = useState<Message[]>([])
+  const addMessage = useMessagesStore((state) => state.addMessage)
+  const clearMessages = useMessagesStore((state) => state.clearMessages)
 
   const conversation = useConversation({
     onConnect: () => console.log('Connected'),
@@ -20,15 +22,11 @@ export function useConversationSession() {
       const capitalizedRole = role.charAt(0).toUpperCase() + role.slice(1)
       console.log(`${capitalizedRole} message: ${msg}`)
 
-      // Add message to state
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: crypto.randomUUID(),
-          role: role as Message['role'],
-          message: msg,
-        },
-      ])
+      // Add message to Zustand store
+      addMessage({
+        role: role as Message['role'],
+        message: msg,
+      })
     },
     onError: (error) => console.error('Error:', error),
   })
@@ -36,6 +34,9 @@ export function useConversationSession() {
   // Start conversation with microphone access and signed URL
   const startConversation = useCallback(async () => {
     try {
+      // Clear previous messages when starting a new conversation
+      clearMessages()
+
       // Request microphone access
       await navigator.mediaDevices.getUserMedia({ audio: true })
 
@@ -50,7 +51,7 @@ export function useConversationSession() {
     } catch (error) {
       console.error('Failed to start conversation:', error)
     }
-  }, [conversation])
+  }, [conversation, clearMessages])
 
   const stopConversation = useCallback(async () => {
     await conversation.endSession()
@@ -58,7 +59,6 @@ export function useConversationSession() {
 
   return {
     conversation,
-    messages,
     startConversation,
     stopConversation,
   }

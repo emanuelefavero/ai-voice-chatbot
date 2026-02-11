@@ -5,16 +5,14 @@ import {
   ConversationScrollButton,
   Conversation as ConversationUI,
 } from '@/components/ui/conversation'
-import type { Message } from '../types'
-
-type ConversationMessagesProps = {
-  messages: Message[]
-}
+import { useMessagesStore } from '../store/messages'
 
 /**
  * Displays the conversation messages in a scrollable container
  */
-export function ConversationMessages({ messages }: ConversationMessagesProps) {
+export function ConversationMessages() {
+  const messages = useMessagesStore((state) => state.messages)
+
   return (
     <ConversationUI className='flex-1 rounded-lg border'>
       <ConversationContent>

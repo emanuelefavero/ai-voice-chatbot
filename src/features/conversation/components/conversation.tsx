@@ -11,11 +11,9 @@ import { ConversationOrb } from './orb'
  * This is a thin container that composes smaller, focused components
  */
 export function Conversation() {
-  const { conversation, messages, startConversation, stopConversation } =
+  const { conversation, startConversation, stopConversation } =
     useConversationSession()
-
   const agentState = useAgentState(conversation)
-
   const isConnected = conversation.status === 'connected'
 
   return (
@@ -24,7 +22,7 @@ export function Conversation() {
       <ConversationOrb agentState={agentState} />
 
       {/* Chat Messages - Scrollable */}
-      <ConversationMessages messages={messages} />
+      <ConversationMessages />
 
       {/* Controls - Fixed at bottom */}
       <ConversationControls
