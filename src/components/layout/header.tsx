@@ -1,3 +1,4 @@
+import { BackButton } from '@/components/shared/back-button'
 import { ModeToggle } from '@/components/theme/mode-toggle'
 import { TITLE } from '@/config/metadata'
 import { cn } from '@/lib/utils'
@@ -14,7 +15,10 @@ export function Header({ className, ...props }: HeaderProps) {
       )}
       {...props}
     >
-      <div className='font-bold'>{TITLE}</div>
+      <div className='flex items-center gap-2'>
+        <div className='font-bold'>{TITLE}</div>
+        <BackButton />
+      </div>
       <div className='flex items-center gap-4'>
         <ModeToggle />
       </div>
