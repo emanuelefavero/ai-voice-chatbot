@@ -10,6 +10,7 @@ const linkVariants = cva(
     variants: {
       variant: {
         default: 'text-link',
+        ghost: 'text-inherit',
       },
     },
     defaultVariants: {

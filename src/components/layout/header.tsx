@@ -1,5 +1,6 @@
 import { BackButton } from '@/components/shared/back-button'
 import { ModeToggle } from '@/components/theme/mode-toggle'
+import { Link } from '@/components/ui/link'
 import { TITLE } from '@/config/metadata'
 import { cn } from '@/lib/utils'
 import type { ComponentProps } from 'react'
@@ -16,7 +17,9 @@ export function Header({ className, ...props }: HeaderProps) {
       {...props}
     >
       <div className='flex items-center gap-2'>
-        <div className='font-bold'>{TITLE}</div>
+        <Link href='/' className='font-bold' variant='ghost'>
+          {TITLE}
+        </Link>
         <BackButton />
       </div>
       <div className='flex items-center gap-4'>
