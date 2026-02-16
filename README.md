@@ -34,12 +34,7 @@ This project is focused on building a high-performance, low-latency AI vocal cha
   touch .env.local
   ```
 
-- Add Environment Variables to `.env.local`:
-
-  ```env
-  ELEVENLABS_API_KEY=your_elevenlabs_api_key_here
-  NEXT_PUBLIC_AGENT_ID=your_agent_id_here
-  ```
+- Add Environment Variables to `.env.local` (See `.env.example` for reference)
 
 - Start Development Server:
 
