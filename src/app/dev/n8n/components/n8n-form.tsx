@@ -1,6 +1,16 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { useActionState } from 'react'
 import { useFormStatus } from 'react-dom'
 import { submitFormAction } from '../actions'
@@ -11,7 +21,7 @@ function SubmitButton() {
   const { pending } = useFormStatus()
 
   return (
-    <Button type='submit' disabled={pending} className='w-full sm:w-auto'>
+    <Button type='submit' disabled={pending} className='w-full'>
       {pending ? 'Submitting...' : 'Submit'}
     </Button>
   )
@@ -53,31 +63,37 @@ export function N8nForm() {
   >(submitFormAction, null)
 
   return (
-    <form
-      action={formAction}
-      className='space-y-4 rounded-lg border p-4 sm:p-6'
-    >
-      <div className='space-y-2'>
-        <label htmlFor='email' className='text-sm font-medium'>
-          Email
-        </label>
-        <input
-          id='email'
-          name='email'
-          type='email'
-          required
-          autoComplete='email'
-          placeholder='name@example.com'
-          aria-invalid={Boolean(state && !state.ok)}
-          className='flex h-10 w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs transition-[color,box-shadow] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50'
-        />
-      </div>
+    <form action={formAction} className='w-full sm:max-w-100'>
+      <Card>
+        <CardHeader>
+          <CardTitle>Submit Email to n8n</CardTitle>
+          <CardDescription>
+            Your email will be sent to an n8n webhook and processed by a
+            workflow that sends a Telegram message.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className='space-y-3'>
+            <Label htmlFor='email'>Email</Label>
+            <Input
+              id='email'
+              name='email'
+              type='email'
+              required
+              autoComplete='email'
+              placeholder='name@example.com'
+              aria-invalid={Boolean(state && !state.ok)}
+            />
+          </div>
 
-      <div aria-live='polite' className='min-h-5 text-sm'>
-        <FormFeedback state={state} />
-      </div>
-
-      <SubmitButton />
+          <div aria-live='polite' className='min-h-5 text-sm'>
+            <FormFeedback state={state} />
+          </div>
+        </CardContent>
+        <CardFooter>
+          <SubmitButton />
+        </CardFooter>
+      </Card>
     </form>
   )
 }
