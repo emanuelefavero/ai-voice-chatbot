@@ -1,5 +1,6 @@
 import { Header } from '@/components/layout/header'
 import { ThemeProvider } from '@/components/theme/theme-provider'
+import { Toaster } from '@/components/ui/sonner'
 import { metadata as appMetadata } from '@/config/metadata'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
@@ -34,6 +35,7 @@ export default function RootLayout({
           <main className='mx-auto flex max-w-3xl flex-col items-center justify-center space-y-4 px-4 py-8'>
             {children}
           </main>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useActionState } from 'react'
 import { useFormStatus } from 'react-dom'
+import { toast } from 'sonner'
 import { submitFormAction } from '../actions'
 import type { Response, ResponseData } from '../types'
 import { formatSubmittedAt } from '../utils'
@@ -27,40 +28,47 @@ function SubmitButton() {
   )
 }
 
-type FormFeedbackProps = {
-  state: Response<ResponseData> | null
-}
+async function submitWithToast(
+  previousState: Response<ResponseData> | null,
+  formData: FormData,
+): Promise<Response<ResponseData>> {
+  const loadingToastId = toast.loading('Sending Telegram message...')
 
-function FormFeedback({ state }: FormFeedbackProps) {
-  const { pending } = useFormStatus()
+  try {
+    const result = await submitFormAction(previousState, formData)
 
-  if (pending) {
-    return <p className='text-muted-foreground'>Sending Telegram message...</p>
-  }
+    toast.dismiss(loadingToastId)
 
-  if (state && !state.ok) {
-    return <p className='text-destructive'>{state.error}</p>
-  }
+    if (!result.ok) {
+      toast.error(result.error)
+      return result
+    }
 
-  if (state && state.ok) {
-    const formattedDate = formatSubmittedAt(state.data.submittedAt)
+    const formattedDate = formatSubmittedAt(result.data.submittedAt)
 
-    return (
-      <p className='text-primary'>
-        Telegram message sent with email {state.data.email}, date:{' '}
-        {formattedDate}
-      </p>
+    toast.success(
+      `Telegram message sent with email ${result.data.email}, date: ${formattedDate}`,
     )
-  }
 
-  return null
+    return result
+  } catch (error) {
+    toast.dismiss(loadingToastId)
+
+    const message = error instanceof Error ? error.message : String(error)
+    toast.error(message)
+
+    return {
+      ok: false,
+      error: message,
+    }
+  }
 }
 
 export function N8nForm() {
   const [state, formAction] = useActionState<
     Response<ResponseData> | null,
     FormData
-  >(submitFormAction, null)
+  >(submitWithToast, null)
 
   return (
     <form action={formAction} className='w-full sm:max-w-100'>
@@ -84,10 +92,6 @@ export function N8nForm() {
               placeholder='name@example.com'
               aria-invalid={Boolean(state && !state.ok)}
             />
-          </div>
-
-          <div aria-live='polite' className='min-h-5 text-sm'>
-            <FormFeedback state={state} />
           </div>
         </CardContent>
         <CardFooter>
