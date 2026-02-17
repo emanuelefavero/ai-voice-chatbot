@@ -7,7 +7,7 @@ export const InputDataSchema = z.object({
 export const N8nResponseDataSchema = z.object({
   id: z.number(),
   email: z.email(),
-  submittedAt: z.string(), // ISO date string
+  submittedAt: z.iso.datetime({ offset: true }), // ISO date string
 })
 
 export const N8nSuccessSchema = z.object({
