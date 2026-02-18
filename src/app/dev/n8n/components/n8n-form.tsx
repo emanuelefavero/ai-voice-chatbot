@@ -16,7 +16,6 @@ import { useFormStatus } from 'react-dom'
 import { toast } from 'sonner'
 import { submitFormAction } from '../actions'
 import type { Response, ResponseData } from '../types'
-import { formatSubmittedAt } from '../utils'
 
 function SubmitButton() {
   const { pending } = useFormStatus()
@@ -44,10 +43,8 @@ async function submitWithToast(
       return result
     }
 
-    const formattedDate = formatSubmittedAt(result.data.submittedAt)
-
     toast.success(
-      `Telegram message sent with email ${result.data.email}, date: ${formattedDate}`,
+      `Telegram message sent with email ${result.data.email}, date: ${result.data.date}`,
     )
 
     return result
