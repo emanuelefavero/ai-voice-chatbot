@@ -1,10 +1,5 @@
 ### N8N Webhooks
 
-### TODO create server action to send email to n8n webhook URL (validate email, handle errors, etc.)
-### TODO create a simple form in /dev/n8n page to test the webhook integration (input for email, submit button, etc.). Start with server form with action attribute, then we can enhance it with client-side validation and zod schema later if needed.
-### TODO Remove "This message was...n8n" from Telegram messages if possible
-### TODO Learn how to use n8n locally instead of cloud (mac, server instance or raspberry pi)
-
 @url = {{$dotenv N8N_WEBHOOK_URL}}
 
 ### Form Submission Webhook
