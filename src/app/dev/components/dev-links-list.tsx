@@ -6,6 +6,9 @@ export function DevLinksList() {
       <li>
         <Link href='/dev/n8n'>N8N</Link>
       </li>
+      <li>
+        <Link href='/dev/redis'>Redis</Link>
+      </li>
     </ul>
   )
 }
