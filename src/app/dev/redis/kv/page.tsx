@@ -31,7 +31,6 @@ export default function Page() {
   const [activeTab, setActiveTab] = useState<'set' | 'get' | 'delete'>('set')
   const [result, setResult] = useState<KvResult | null>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [copyFeedback, setCopyFeedback] = useState('')
 
   async function setValueAction() {
     try {
@@ -98,20 +97,6 @@ export default function Page() {
     }
   }
 
-  async function copyKeyToClipboard() {
-    if (!key) return
-
-    try {
-      await navigator.clipboard.writeText(key)
-      setCopyFeedback('Copied')
-      setTimeout(() => {
-        setCopyFeedback('')
-      }, 1500)
-    } catch {
-      setCopyFeedback('Copy failed')
-    }
-  }
-
   return (
     <div className='w-full space-y-4 sm:max-w-100'>
       <h1 className='text-2xl font-semibold'>Redis Key-Value playground</h1>
@@ -141,24 +126,7 @@ export default function Page() {
 
             <TabsContent value='set' className='space-y-4'>
               <div className='space-y-2'>
-                <div className='flex items-center justify-between gap-2'>
-                  <Label htmlFor='redis-key-set'>Key</Label>
-                  <div className='flex items-center gap-2'>
-                    <Button
-                      size='sm'
-                      variant='outline'
-                      onClick={copyKeyToClipboard}
-                      disabled={!key}
-                    >
-                      Copy key
-                    </Button>
-                    {copyFeedback ? (
-                      <span className='text-xs text-muted-foreground'>
-                        {copyFeedback}
-                      </span>
-                    ) : null}
-                  </div>
-                </div>
+                <Label htmlFor='redis-key-set'>Key</Label>
                 <Input
                   id='redis-key-set'
                   value={key}
